@@ -1,7 +1,7 @@
 ### Escuela Colombiana de Ingeniería
 ### Arquitecturas de Software - ARSW
 ### Laboratorio - Broker de Mensajes STOMP con WebSockets + HTML5 Canvas.
-
+[![Heroku](https://wmpics.pics/di-D9YP.png)](https://compscene.herokuapp.com/)
 
 
 - Conectarse con un botón
@@ -133,6 +133,7 @@ Para ver cómo manejar esto desde el manejador de eventos STOMP del servidor, re
 	git commit -m "PARTE FINAL".
 	```	
 
+### Descripción de la arquitectura
 
 
 ### Criterios de evaluación
