@@ -7,6 +7,7 @@ var app = (function () {
         }        
     }
     
+    var id = 0;
     var stompClient = null;
 
     var addPointToCanvas = function (point) {        
@@ -36,11 +37,9 @@ var app = (function () {
         //subscribe to /topic/newpoint when connections succeed
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
-            stompClient.subscribe('/topic/newpoint', function (eventbody) {
-                var theObject=JSON.parse(eventbody.body);
-                addPointToCanvas(theObject);
-                
-                console.log(theObject);
+            stompClient.subscribe('/topic/newpoint.' + id, function (eventbody) {
+                var point=JSON.parse(eventbody.body);
+                addPointToCanvas(point);
             });
         });
 
@@ -52,6 +51,9 @@ var app = (function () {
 
         init: function () {
             var can = document.getElementById("canvas");
+            var ctx = can.getContext('2d');
+            ctx.canvas.width  = window.innerWidth;
+            ctx.canvas.height = window.innerHeight;
             $(can).click( function (e){
                 var pt = getMousePosition(e);
                 app.publishPoint(pt.x, pt.y);
@@ -66,7 +68,7 @@ var app = (function () {
             addPointToCanvas(pt);
 
             //publicar el evento
-            stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));
+            stompClient.send("/topic/newpoint." + id, {}, JSON.stringify(pt));
         },
 
         disconnect: function () {
@@ -75,6 +77,11 @@ var app = (function () {
             }
             setConnected(false);
             console.log("Disconnected");
+        },
+        
+        connect: function (identifier) {
+            id = identifier;
+            app.init();
         }
     };
 
