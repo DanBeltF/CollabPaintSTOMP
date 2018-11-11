@@ -39,7 +39,7 @@ var app = (function () {
             stompClient.subscribe('/topic/newpoint', function (eventbody) {
                 var theObject=JSON.parse(eventbody.body);
                 addPointToCanvas(theObject);
-                alert("Test on every tab");
+                
                 console.log(theObject);
             });
         });
@@ -52,7 +52,10 @@ var app = (function () {
 
         init: function () {
             var can = document.getElementById("canvas");
-            
+            $(can).click( function (e){
+                var pt = getMousePosition(e);
+                app.publishPoint(pt.x, pt.y);
+            });  
             //websocket connection
             connectAndSubscribe();
         },
