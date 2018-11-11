@@ -134,7 +134,10 @@ Para ver cómo manejar esto desde el manejador de eventos STOMP del servidor, re
 	```	
 
 ### Descripción de la arquitectura
+![](img/P4-DD.png)
+La arquitectura muestra un cliente para pintar puntos y poligonos que a través de un broker de mensajes STOMP (Messsage Oriented Middleware) garantiza que el mensaje sea enviado al destino "/topic/newpoint." o "/topic/newpolygon." segun sea el caso, llevando la cuenta de puntos para controlar los polígonos. Se usa un index.html como vista para el canvas y por medio de un app.js se manipula los clicks del raton y la acción al insertar puntos o polígonos colaborativamente, teniendo en ese orden de ideas, un aplicativo concurrente.
 
+![](img/P3-AD.png)
 
 ### Criterios de evaluación
 
